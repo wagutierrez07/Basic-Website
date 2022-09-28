@@ -16,7 +16,7 @@ if (isset($_SESSION['email'])) {
 <form method="post" action="">
 	email: <br>
 	<input type="email" name="email"><br>
-	clave: <br>
+	password: <br>
 	<input type="password" name="password"><br>
 	<input type="submit" name="login" value="login">
 </form>
