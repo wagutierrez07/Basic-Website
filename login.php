@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['email'])) {
+if (isset($_SESSION['username'])) {
 	header("Location: index.php");
 }
  ?>
@@ -14,8 +14,8 @@ if (isset($_SESSION['email'])) {
 </head>
 <body>
 <form method="post" action="">
-	email: <br>
-	<input type="email" name="email"><br>
+	username: <br>
+	<input type="text" name="username"><br>
 	password: <br>
 	<input type="password" name="password"><br>
 	<input type="submit" name="login" value="login">
@@ -25,15 +25,17 @@ if (isset($_SESSION['email'])) {
 <?php 
 require 'config/config.php';
 if (isset($_POST['login'])) {
-   $email = $_POST['email'];
-   $password = $_POST['password'];
+   $username = $_POST['username'];
+   $password=md5($_POST['password']);
 }
 
-$validate = $conn->query("SELECT * FROM users WHERE email = '$email' AND password = '$password'");
+$validate = $conn->query("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
 $count = $validate->num_rows;
+$data = $validate->fetch_assoc();
 
 if ($count == 1) {
-    $_SESSION['email'] = $email;
+    $_SESSION['username'] = $username;
+    $_SESSION['id'] = $data['id'];
     header("Location: index.php");
 }
 
