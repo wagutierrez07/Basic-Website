@@ -48,13 +48,26 @@ if (isset($_POST['share'])) {
 
 require 'config/config.php';
 
-$comments = $conn->query("SELECT * FROM posts");
+$comments = $conn->query("SELECT * FROM posts ORDER BY id DESC");
 
 while ($row = $comments->fetch_assoc()) {
-	echo $row['comment'] . "<br> <br>";
-}
+
+$users=$conn->query("SELECT username FROM users WHERE id = '".$row['username']."'");
+$rowser=$users->fetch_assoc();
 
  ?>
+ <br>
+	<div>
+		<a href="profile.php?id=<?php echo $row['username']; ?>"><?php echo $rowser['username']; ?></a>
+		<div>
+			<?php echo $row['post']; ?>
+		</div>
+		<br>
+	</div>
+
+	<?php } ?>
+
+
 </body>
 </html>
 

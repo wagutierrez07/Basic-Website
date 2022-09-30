@@ -40,7 +40,7 @@ if (isset($_POST['register'])) {
 	$regis=$conn->query("INSERT INTO users (username, email, password, fecha) VALUES ('$username', '$email', '$password', now())");
 
 	if ($regis) {
-		echo "registro con exito";
+		echo "registro con exito, ya se puede <a href='login.php'>registrar</a> ";
 	}
 
 	}
