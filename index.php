@@ -14,12 +14,10 @@
 <?php 
 
 if (isset($_SESSION['username'])) {
-	echo "welcome " . $_SESSION['username'];
-	echo "<br>";
-	echo "<a href='logout.php'>salir</a> ";
-
 
  ?>
+<?php include 'config/navbar.php'; ?>
+
 <!-- formulario solo para miembros -->
  <br> <br>
 
@@ -46,7 +44,6 @@ if (isset($_POST['share'])) {
 require 'config/config.php';
 
 $comments = $conn->query("SELECT * FROM posts ORDER BY id DESC");
-
 while ($row = $comments->fetch_assoc()) {
 
 $users=$conn->query("SELECT username FROM users WHERE id = '".$row['username']."'");

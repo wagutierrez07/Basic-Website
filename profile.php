@@ -27,6 +27,7 @@ if (!isset($_SESSION['username'])) {
 		$validate=$conn->query("SELECT * FROM users WHERE id = '".$_GET['id']."'");
 		$row=$validate->fetch_assoc();
 	 ?>
+	 <?php include 'config/navbar.php'; ?>
 	 <img src="<?php echo $row['imagen']; ?> " width="100"> <br> <br>
 	<!--  formulario exclusivo para un solo usuario en particular -->
 
@@ -54,10 +55,37 @@ if (!isset($_SESSION['username'])) {
 	 		header("Location: profile.php?id=".$_GET['id']."");
 	 	}
 
-	 } ?>
+	 } 
+
+	 ?>
 
 	 Perfil de <?php echo $row['username']; ?> <br> <br>
 	 Fecha de login: <?php echo $row['fecha']; ?> <br> <br>
+
+<br> <br><br> <br>
+
+<?php 
+
+require 'config/config.php';
+
+$comments = $conn->query("SELECT * FROM posts WHERE username = '".$_GET['id']."' ORDER BY id DESC");
+while ($row = $comments->fetch_assoc()) {
+
+$users=$conn->query("SELECT username FROM users WHERE id = '".$row['username']."'");
+$rowser=$users->fetch_assoc();
+
+ ?>
+ <br>
+	<div>
+		<a href="profile.php?id=<?php echo $row['username']; ?>"><?php echo $rowser['username']; ?></a>
+		<div>
+			<?php echo $row['post']; ?>
+		</div>
+		<br>
+	</div>
+
+	<?php } ?>
+
 
 	<?php } ?>
 
