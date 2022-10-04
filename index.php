@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Index</title>
+	<title>Index - beifuc</title>
 </head>
 <body>
 <?php 
@@ -17,13 +17,10 @@ if (isset($_SESSION['username'])) {
 	echo "welcome " . $_SESSION['username'];
 	echo "<br>";
 	echo "<a href='logout.php'>salir</a> ";
-}
-else{
-	echo "<a href='login.php'>log</a> or <a href='register.php'>register</a>";
-}
+
 
  ?>
-
+<!-- formulario solo para miembros -->
  <br> <br>
 
  <form action="" method="post">
@@ -67,7 +64,10 @@ $rowser=$users->fetch_assoc();
 
 	<?php } ?>
 
-
+<?php }
+else{
+	echo "<a href='login.php'>log</a> or <a href='register.php'>register</a>";
+} ?>
 </body>
 </html>
 
