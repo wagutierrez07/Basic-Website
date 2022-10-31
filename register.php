@@ -26,7 +26,7 @@ if (isset($_POST['register'])) {
 	require 'config/config.php';
 	$username=$_POST['username'];
 	$email=$_POST['email'];
-	$password=md5($_POST['password']);
+	$password=base64_encode($_POST['password']);
 
 	$validate = $conn->query("SELECT * FROM users WHERE email = '$email'");
 	$count=$validate->num_rows;

@@ -1,8 +1,10 @@
 <?php 
+
 session_start();
 if (isset($_SESSION['username'])) {
-	header("Location: index.php");
+	header("location: index.php");
 }
+
  ?>
 
 <!DOCTYPE html>
@@ -13,23 +15,26 @@ if (isset($_SESSION['username'])) {
 	<title>Login</title>
 </head>
 <body>
-<form method="post" action="">
-	username: <br>
-	<input type="text" name="username"><br>
-	password: <br>
-	<input type="password" name="password"><br>
-	<input type="submit" name="login" value="login">
-</form>
+	<form method="post" action="">
+		Username: <br>
+		<input type="text" name="username"> <br>
+		Password: <br>
+		<input type="password" name="password"> <br>
+		<input type="submit" name="login" value="login">
+	</form>
 </body>
 </html>
-<?php 
-require 'config/config.php';
-if (isset($_POST['login'])) {
-   $username = $_POST['username'];
-   $password=md5($_POST['password']);
-}
 
-$validate = $conn->query("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+<?php 
+
+require 'config/config.php';
+
+if (isset($_POST['login'])) {
+	$username = $_POST['username'];
+	$password = base64_encode($_POST['password']);
+
+	$validate = $conn->query("SELECT * FROM users WHERE username = '$username'");
+
 $count = $validate->num_rows;
 $data = $validate->fetch_assoc();
 
@@ -38,5 +43,7 @@ if ($count == 1) {
     $_SESSION['id'] = $data['id'];
     header("Location: index.php");
 }
+}
+
 
  ?>
